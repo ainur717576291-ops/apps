@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Мои приложения — Айнур</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{ --bg1:#eef3fb; --bg2:#f6f8fc; --ink:#1f2740; --muted:#5f6b88; --card:#fff; }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(160deg,var(--bg1),var(--bg2)); color:var(--ink);
+    min-height:100vh; padding:22px 16px calc(28px + env(safe-area-inset-bottom));}
+  .head{text-align:center; margin:10px 0 20px}
+  .head h1{margin:0 0 6px; font-size:22px; font-weight:800}
+  .head p{margin:0; color:var(--muted); font-size:13px}
+  .grid{display:flex; flex-direction:column; gap:12px; max-width:520px; margin:0 auto}
+  a.app{display:flex; align-items:center; gap:14px; text-decoration:none; color:inherit;
+    background:var(--card); border-radius:18px; padding:16px 16px; box-shadow:0 8px 24px rgba(31,45,90,.10);
+    border:1px solid rgba(31,45,90,.05); transition:transform .08s ease}
+  a.app:active{transform:scale(.98)}
+  .ic{width:52px; height:52px; border-radius:14px; display:flex; align-items:center; justify-content:center;
+    font-size:26px; flex:0 0 auto}
+  .b1{background:#e6efff} .b2{background:#e3f7f1} .b3{background:#fff0e0}
+  .b4{background:#e9fbe9} .b5{background:#f0ebff}
+  .t{flex:1; min-width:0}
+  .t .n{font-size:16px; font-weight:700}
+  .t .d{font-size:12.5px; color:var(--muted); margin-top:2px}
+  .arw{color:#9aa4bf; font-size:22px; font-weight:700}
+  .foot{text-align:center; color:var(--muted); font-size:11.5px; margin-top:20px}
+</style>
+</head>
+<body>
+<script>try{var tg=window.Telegram&&window.Telegram.WebApp; if(tg){tg.ready();tg.expand();}}catch(e){}</script>
+<div class="head">
+  <h1>Мои приложения</h1>
+  <p>Нажмите, чтобы открыть нужное</p>
+</div>
+<div class="grid">
+  <a class="app" href="https://ainur717576291-ops.github.io/curator-crm/" target="_blank" rel="noopener">
+    <div class="ic b1">👩‍🏫</div>
+    <div class="t"><div class="n">Ученики (кураторы)</div><div class="d">CRM: ученики, модули, созвоны, оферта</div></div>
+    <div class="arw">›</div>
+  </a>
+  <a class="app" href="https://ainur717576291-ops.github.io/sales-crm/" target="_blank" rel="noopener">
+    <div class="ic b2">📊</div>
+    <div class="t"><div class="n">Отдел продаж</div><div class="d">Отчёты, план, рейтинг, зарплата</div></div>
+    <div class="arw">›</div>
+  </a>
+  <a class="app" href="https://book.stomatologainur.site/" target="_blank" rel="noopener">
+    <div class="ic b3">📚</div>
+    <div class="t"><div class="n">Книжный клуб</div><div class="d">Уроки по главам: аудио + текст</div></div>
+    <div class="arw">›</div>
+  </a>
+  <a class="app" href="https://ainur717576291-ops.github.io/oral-hygiene/" target="_blank" rel="noopener">
+    <div class="ic b4">🪥</div>
+    <div class="t"><div class="n">Гигиена полости рта</div><div class="d">Трекер, подбор, функции, полезное</div></div>
+    <div class="arw">›</div>
+  </a>
+  <a class="app" href="https://ainur717576291-ops.github.io/my-dashboard/" target="_blank" rel="noopener">
+    <div class="ic b5">📈</div>
+    <div class="t"><div class="n">Мой дашборд</div><div class="d">Личные цели, финансы, привычки</div></div>
+    <div class="arw">›</div>
+  </a>
+</div>
+<div class="foot">Айнур · детский ортодонт</div>
+</body>
+</html>
