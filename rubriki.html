@@ -1,0 +1,492 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Рубрики: разбор рынка и план «Коробки с прикусом»</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #F6F5F8; }
+  @media (prefers-color-scheme: dark) { body { background: #16141A; } }
+</style>
+</head>
+<body>
+<script>try{var tg=window.Telegram&&window.Telegram.WebApp; if(tg){tg.ready();tg.expand();}}catch(e){}</script>
+<style>
+  :root {
+    --ground: #F6F5F8;
+    --panel: #FFFFFF;
+    --edge: #E2DEE6;
+    --ink: #221E26;
+    --ink-2: #4A4551;
+    --steel: #6B6675;
+    --accent: #A83A62;
+    --accent-ink: #8E2E52;
+    --accent-soft: #F2E3EA;
+    --gypsum: #EDEBEF;
+    --shadow: 0 1px 2px rgba(34, 30, 38, .06), 0 8px 24px -18px rgba(34, 30, 38, .28);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #16141A;
+      --panel: #201D25;
+      --edge: #322D3A;
+      --ink: #EFEBF1;
+      --ink-2: #C4BDCB;
+      --steel: #9B94A5;
+      --accent: #E88FAC;
+      --accent-ink: #F0A9C0;
+      --accent-soft: #35262E;
+      --gypsum: #2A2632;
+      --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 10px 28px -20px rgba(0, 0, 0, .9);
+    }
+  }
+
+  :root[data-theme="light"] {
+    --ground: #F6F5F8;
+    --panel: #FFFFFF;
+    --edge: #E2DEE6;
+    --ink: #221E26;
+    --ink-2: #4A4551;
+    --steel: #6B6675;
+    --accent: #A83A62;
+    --accent-ink: #8E2E52;
+    --accent-soft: #F2E3EA;
+    --gypsum: #EDEBEF;
+    --shadow: 0 1px 2px rgba(34, 30, 38, .06), 0 8px 24px -18px rgba(34, 30, 38, .28);
+  }
+
+  :root[data-theme="dark"] {
+    --ground: #16141A;
+    --panel: #201D25;
+    --edge: #322D3A;
+    --ink: #EFEBF1;
+    --ink-2: #C4BDCB;
+    --steel: #9B94A5;
+    --accent: #E88FAC;
+    --accent-ink: #F0A9C0;
+    --accent-soft: #35262E;
+    --gypsum: #2A2632;
+    --shadow: 0 1px 2px rgba(0, 0, 0, .5), 0 10px 28px -20px rgba(0, 0, 0, .9);
+  }
+
+  .page {
+    background: var(--ground);
+    color: var(--ink);
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 17px;
+    line-height: 1.62;
+    -webkit-text-size-adjust: 100%;
+    min-height: 100%;
+  }
+
+  .wrap {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding: 2.25rem 1.15rem 4rem;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .eyebrow {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-style: italic;
+    font-size: .95rem;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  h1 {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: clamp(1.75rem, 6.5vw, 2.45rem);
+    line-height: 1.14;
+    letter-spacing: -.012em;
+    text-wrap: balance;
+    margin: .45rem 0 0;
+  }
+
+  .lede {
+    color: var(--ink-2);
+    margin: .9rem 0 0;
+  }
+
+  h2 {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-weight: 400;
+    font-size: 1.42rem;
+    line-height: 1.22;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  h3 {
+    font-size: 1.03rem;
+    font-weight: 650;
+    line-height: 1.3;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  p { margin: 0; }
+
+  section {
+    display: flex;
+    flex-direction: column;
+    gap: 1.05rem;
+  }
+
+  .label {
+    font-size: .69rem;
+    font-weight: 700;
+    letter-spacing: .13em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin: 0;
+  }
+
+  /* --- архетипы --- */
+  .kinds {
+    display: flex;
+    flex-direction: column;
+    gap: .8rem;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  .kind {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: .35rem;
+    box-shadow: var(--shadow);
+    padding: 1rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+
+  .kind-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: .75rem;
+  }
+
+  .kind p { color: var(--ink-2); font-size: .96rem; }
+
+  .kind .who {
+    color: var(--steel);
+    font-size: .87rem;
+  }
+
+  .kind .who b { color: var(--ink-2); font-weight: 600; }
+
+  /* плотность = сколько таких рубрик уже есть на рынке */
+  .density {
+    display: flex;
+    align-items: center;
+    gap: .3rem;
+    flex: none;
+  }
+
+  .density .dot {
+    width: .44rem;
+    height: .44rem;
+    border-radius: 50%;
+    background: var(--gypsum);
+    border: 1px solid var(--edge);
+  }
+
+  .density .dot.on { background: var(--accent); border-color: var(--accent); }
+
+  .density .cap {
+    font-size: .68rem;
+    letter-spacing: .06em;
+    text-transform: uppercase;
+    color: var(--steel);
+    margin-right: .1rem;
+  }
+
+  .pick {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-soft);
+    border-radius: .35rem;
+    padding: 1rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: .55rem;
+  }
+
+  .pick h3 { color: var(--accent-ink); }
+  .pick p { color: var(--ink-2); font-size: .96rem; }
+
+  /* --- выпуски: это настоящая последовательность, поэтому нумерация --- */
+  .episodes {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: .1rem;
+    counter-reset: ep;
+  }
+
+  .ep {
+    display: grid;
+    grid-template-columns: 2rem 1fr;
+    gap: .1rem .7rem;
+    padding: .85rem 0;
+    border-bottom: 1px solid var(--edge);
+  }
+
+  .ep:last-child { border-bottom: 0; }
+
+  .ep::before {
+    counter-increment: ep;
+    content: counter(ep);
+    font-variant-numeric: tabular-nums;
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--accent);
+    padding-top: .06rem;
+  }
+
+  .ep-body { display: flex; flex-direction: column; gap: .3rem; }
+  .ep-hook {
+    font-family: Georgia, "Iowan Old Style", "Times New Roman", serif;
+    font-style: italic;
+    color: var(--ink-2);
+    font-size: .96rem;
+  }
+  .ep-note { color: var(--steel); font-size: .87rem; }
+
+  .how {
+    background: var(--panel);
+    border: 1px solid var(--edge);
+    border-radius: .35rem;
+    padding: 1rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: .65rem;
+  }
+
+  .how ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .4rem; }
+  .how li { color: var(--ink-2); font-size: .96rem; }
+
+  .warn {
+    border: 1px solid var(--edge);
+    border-left: 3px solid var(--steel);
+    border-radius: .35rem;
+    padding: 1rem 1.05rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .warn p { color: var(--ink-2); font-size: .96rem; }
+
+  .sources {
+    border-top: 1px solid var(--edge);
+    padding-top: 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: .5rem;
+  }
+  .sources p, .sources li { color: var(--steel); font-size: .84rem; }
+  .sources ul { margin: 0; padding-left: 1.1rem; display: flex; flex-direction: column; gap: .3rem; }
+  .sources a { color: var(--accent); text-decoration: none; border-bottom: 1px solid var(--accent-soft); }
+  .sources a:hover { border-bottom-color: var(--accent); }
+  .sources a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; border-radius: 2px; }
+</style>
+
+<div class="page">
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Разбор для Айнуры</p>
+    <h1>Какие рубрики работают — и почему «Коробка с прикусом» попадает в лучшую нишу</h1>
+    <p class="lede">«Библиотека под кроватью» держится не на книгах. Она держится на трёх вещах: одно и то же неожиданное место, своё название, предсказуемый ритм. Ниже — какие типы таких рубрик вообще существуют, насколько каждый занят, и готовый план первых восьми выпусков вашей.</p>
+  </header>
+
+  <section>
+    <p class="label">Шесть типов, на которых держится рынок</p>
+    <h2>Все «прикольные рубрики» сводятся к шести приёмам</h2>
+    <p>Точки рядом с названием — насколько тип уже занят. Три точки: таких рубрик очень много, вы будете одной из тысячи. Одна точка: почти свободно.</p>
+
+    <ul class="kinds">
+      <li class="kind">
+        <div class="kind-head">
+          <h3>Предмет из коробки</h3>
+          <div class="density"><span class="cap">занято</span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <p>Каждый выпуск — одна вещь, которую достают из одного и того же места. Вещь и есть крючок: её хочется рассмотреть.</p>
+        <p class="who"><b>Пример:</b> та самая «библиотека под кроватью» — книги из-под поднятого матраса. В медицине приём почти не занят.</p>
+      </li>
+
+      <li class="kind">
+        <div class="kind-head">
+          <h3>Эксперт реагирует</h3>
+          <div class="density"><span class="cap">занято</span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <p>Врач смотрит чужое видео и разбирает: где вред, где ерунда. Работает потому, что настоящая реакция специалиста убедительнее любого сценария.</p>
+        <p class="who"><b>Пример:</b> «Dentist Reacts», «Dietitian Reacts», ортодонты с разбором опасных зубных лайфхаков из TikTok. Жанр переполнен.</p>
+      </li>
+
+      <li class="kind">
+        <div class="kind-head">
+          <h3>Миф или правда</h3>
+          <div class="density"><span class="cap">занято</span><span class="dot on"></span><span class="dot on"></span><span class="dot on"></span></div>
+        </div>
+        <p>Одно утверждение за выпуск: сначала громкое «миф!», потом объяснение. Стоматологам этот формат советуют как серию чаще любого другого — и именно поэтому он приелся.</p>
+        <p class="who"><b>Где ещё живо:</b> когда миф берут не из интернета, а из своих приёмов — «вот что мне сказали в кабинете во вторник».</p>
+      </li>
+
+      <li class="kind">
+        <div class="kind-head">
+          <h3>Вопрос, который стесняются задать</h3>
+          <div class="density"><span class="cap">занято</span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <p>Врач отвечает на то, что вслух спросить неловко. Ровно на этом выросли самые крупные врачебные аккаунты — люди приходят за ответом, который больше нигде не получат.</p>
+        <p class="who"><b>Пример:</b> Rose Marie Leslie — платформа назвала её самым влиятельным медицинским автором; Winston Tiwaquen набрал 3,4 млн подписчиков на ответах на частые вопросы пациентов.</p>
+      </li>
+
+      <li class="kind">
+        <div class="kind-head">
+          <h3>Тур по пространству</h3>
+          <div class="density"><span class="cap">занято</span><span class="dot on"></span><span class="dot on"></span><span class="dot"></span></div>
+        </div>
+        <p>Камера идёт по полке, холодильнику, шкафу — и хозяин комментирует, что тут лишнее. Узнаваемость: зритель видит свою полку.</p>
+        <p class="who"><b>Пример:</b> диетологи с турами по холодильнику и по полкам в магазине. У врачей-стоматологов — редко.</p>
+      </li>
+
+      <li class="kind">
+        <div class="kind-head">
+          <h3>Один разбор — один урок</h3>
+          <div class="density"><span class="cap">занято</span><span class="dot on"></span><span class="dot"></span><span class="dot"></span></div>
+        </div>
+        <p>Один снимок, один случай, шестьдесят секунд. Не для родителей — для коллег. Строит репутацию наставника, а не популярность.</p>
+        <p class="who"><b>Для кого:</b> ваше направление для врачей. Тут почти никто не работает системно, обычно это разовые посты.</p>
+      </li>
+    </ul>
+  </section>
+
+  <section>
+    <p class="label">Почему ваш выбор верный</p>
+    <h2>«Коробка с прикусом» стоит на пересечении самого сильного и самого свободного</h2>
+
+    <div class="pick">
+      <h3>У вас есть то, что нельзя повторить</h3>
+      <p>Гипсовые модели, каппы, пластинки, ретейнеры — это готовый реквизит, которого нет ни у одного другого автора в вашей теме. Книги под кроватью может показать любой; коробку с прикусом — только ортодонт.</p>
+    </div>
+
+    <div class="pick">
+      <h3>Предмет снимает страх</h3>
+      <p>Родителю трудно слушать про «дистальную окклюзию». Но он смотрит на гипсовый слепок и всё понимает без слов. Вещь объясняет вместо терминов — и заодно не пугает, потому что это не про его ребёнка, а про предмет на столе.</p>
+    </div>
+
+    <div class="pick">
+      <h3>Рубрика не кончится</h3>
+      <p>Главная причина, по которой рубрики умирают, — темы закончились на пятом выпуске. У вас в коробке предметов на год вперёд, и каждый новый приём добавляет ещё.</p>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">Первый сезон</p>
+    <h2>Восемь выпусков — их достаточно, чтобы рубрику запомнили</h2>
+    <p>Порядок не случайный: сначала то, что задевает почти каждого родителя, ближе к концу — сложнее и личнее. Курсивом — первая фраза, она же крючок.</p>
+
+    <ol class="episodes">
+      <li class="ep"><div class="ep-body">
+        <h3>Слепок «открытый прикус» от соски</h3>
+        <p class="ep-hook">«Вот что делает любимая соска к трём годам. Я не пугаю — я показываю гипс.»</p>
+        <p class="ep-note">Самый узнаваемый страх и самая частая причина прихода. Начинать надо с него.</p>
+      </div></li>
+
+      <li class="ep"><div class="ep-body">
+        <h3>Трейнер — «резиновая штука, которую все путают с каппой»</h3>
+        <p class="ep-hook">«Мне пишут: купили на маркетплейсе, носим. Давайте разберёмся, что вы купили.»</p>
+        <p class="ep-note">Закрывает реальный вопрос из личных сообщений — такие выпуски собирают комментарии.</p>
+      </div></li>
+
+      <li class="ep"><div class="ep-body">
+        <h3>Ретейнер — почему после брекетов лечение не заканчивается</h3>
+        <p class="ep-hook">«Самая обидная история в моей работе — когда всё получилось, а через год вернулось.»</p>
+        <p class="ep-note">Тема, на которой теряют результат. Родители про неё почти не знают.</p>
+      </div></li>
+
+      <li class="ep"><div class="ep-body">
+        <h3>Модель со скученностью — «зубам не хватило места»</h3>
+        <p class="ep-hook">«Зубы не выросли криво. Им не хватило места — и вот почему.»</p>
+        <p class="ep-note">Переводит «криво растут» из приговора в понятную механику.</p>
+      </div></li>
+
+      <li class="ep"><div class="ep-body">
+        <h3>Пластинка с винтом — как вообще расширяют челюсть</h3>
+        <p class="ep-hook">«Этот винт я подкручиваю на приёме. Родители каждый раз спрашивают: ей не больно?»</p>
+        <p class="ep-note">Показать сам поворот винта — это то самое движение, которое хочется посмотреть до конца.</p>
+      </div></li>
+
+      <li class="ep"><div class="ep-body">
+        <h3>Две соски рядом: обычная и ортодонтическая</h3>
+        <p class="ep-hook">«Разница в форме — три миллиметра. Разница для прикуса — годы.»</p>
+        <p class="ep-note">Сравнение двух предметов в кадре работает лучше одного: зритель сам делает вывод.</p>
+      </div></li>
+
+      <li class="ep"><div class="ep-body">
+        <h3>Модель ребёнка, который дышит ртом</h3>
+        <p class="ep-hook">«Спит с открытым ртом, храпит, устаёт. Прикус тут — только следствие.»</p>
+        <p class="ep-note">Мостик к аденоидам и к вашему сильному направлению. Тут же зовите к лору, а не только к себе — это добавляет доверия.</p>
+      </div></li>
+
+      <li class="ep"><div class="ep-body">
+        <h3>Слепок вашего собственного ребёнка</h3>
+        <p class="ep-hook">«В этой коробке есть одна модель, которую я показываю тяжелее всего. Это мой ребёнок.»</p>
+        <p class="ep-note">Личный выпуск ставьте в конце сезона: к нему зритель уже привязан. Пересекается с вашей рубрикой «Я тоже мама».</p>
+      </div></li>
+    </ol>
+  </section>
+
+  <section>
+    <p class="label">Как снимать</p>
+    <h2>Весь сезон — один съёмочный день</h2>
+    <div class="how">
+      <ul>
+        <li>Одна коробка, один стол, один и тот же свет. Место должно быть узнаваемым с первого кадра — это половина успеха рубрики.</li>
+        <li>Начало всегда одинаковое: руки открывают коробку и достают предмет. Такой повторяющийся вход и делает набор видео рубрикой.</li>
+        <li>40–60 секунд. Дольше — родитель не доносит до конца.</li>
+        <li>Один выпуск в неделю, по расписанию. Недельный ритм быстрее всего превращает зрителя в постоянного.</li>
+        <li>Восемь выпусков снимаются за один день подряд: коробка уже стоит, свет выставлен, вы в кадре.</li>
+        <li>В конце — вопрос, на который легко ответить одним словом. «У вашего сосёт палец?» собирает больше, чем «поделитесь опытом».</li>
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <p class="label">О чём помнить</p>
+    <h2>Две границы, за которые не стоит выходить</h2>
+    <div class="warn">
+      <p><b>Никакой личности пациента.</b> Гипс без имён, без «мальчик из Астаны, 7 лет». Модель в кадре — это предмет, а не чей-то ребёнок.</p>
+      <p><b>Никаких обещаний результата.</b> «Вот так бывает» вместо «вот так будет у вас». Показ предмета к этому не обязывает — и это ещё одно преимущество формата перед «до и после».</p>
+    </div>
+  </section>
+
+  <section class="sources">
+    <p><b>Откуда цифры и примеры.</b> Готового списка «прикольных рубрик» на рынке не публикуют — есть данные по типам форматов и отдельные разборы врачебных аккаунтов. Оценка занятости ниш — моя, по тому, как часто формат встречается в подборках для стоматологов и в самих аккаунтах.</p>
+    <ul>
+      <li><a href="https://later.com/blog/how-to-build-a-signature-content-series/">Later — как строится именная рубрика: ритм, узнаваемый вход, сезон из 6–8 выпусков</a></li>
+      <li><a href="https://www.socialpilot.co/blog/social-media-content-series-guide">SocialPilot — почему серийный контент удерживает зрителя лучше отдельных постов</a></li>
+      <li><a href="https://www.socialmon.ai/blog/63-orthodontist-instagram-post-ideas-with-examples">Socialmon — подборка форматов для ортодонтов, включая серии «миф» и еженедельные советы</a></li>
+      <li><a href="https://www.lassomd.com/blog/24-best-dental-marketing-social-media-ideas">Lasso MD — форматы для стоматологий: мифы серией, «одна деталь, о которой не знают»</a></li>
+      <li><a href="https://livegrowsmile.com/an-orthodontist-reacts-to-dangerous-tiktok-dental-hacks/">Пример «ортодонт реагирует» — разбор опасных зубных лайфхаков</a></li>
+      <li><a href="https://time.com/5926397/health-workers-tiktok-covid-19/">Time — врачи, выросшие на ответах на неудобные вопросы</a></li>
+      <li><a href="https://www.rappler.com/life-and-style/health-and-wellness/meet-healthcare-professionals-use-tiktok-debunk-myths/">Rappler — 3,4 млн подписчиков на разборе частых вопросов пациентов</a></li>
+    </ul>
+  </section>
+
+</div>
+</div>
+</body>
+</html>
