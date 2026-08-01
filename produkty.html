@@ -1,0 +1,479 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Что продаётся — разбор по продуктам</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  html, body { margin: 0; padding: 0; }
+  body { background: #F5F7F7; }
+  @media (prefers-color-scheme: dark) { body { background: #141719; } }
+</style>
+</head>
+<body>
+<script>try{var tg=window.Telegram&&window.Telegram.WebApp; if(tg){tg.ready();tg.expand();}}catch(e){}</script>
+<style>
+  :root {
+    --ground: #F5F7F7;
+    --panel: #FFFFFF;
+    --edge: #DFE5E4;
+    --ink: #1C2A28;
+    --ink-2: #3D4A48;
+    --muted: #5A6866;
+    --accent: #16665F;
+    --accent-soft: #E4EFED;
+    --track: #EDF1F0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --ground: #141719;
+      --panel: #1B1F21;
+      --edge: #2C3335;
+      --ink: #E7EDEB;
+      --ink-2: #C3CDCB;
+      --muted: #9AA6A4;
+      --accent: #5FC9BC;
+      --accent-soft: #1E2E2C;
+      --track: #242A2C;
+    }
+  }
+  :root[data-theme="light"] {
+    --ground: #F5F7F7; --panel: #FFFFFF; --edge: #DFE5E4; --ink: #1C2A28;
+    --ink-2: #3D4A48; --muted: #5A6866; --accent: #16665F; --accent-soft: #E4EFED; --track: #EDF1F0;
+  }
+  :root[data-theme="dark"] {
+    --ground: #141719; --panel: #1B1F21; --edge: #2C3335; --ink: #E7EDEB;
+    --ink-2: #C3CDCB; --muted: #9AA6A4; --accent: #5FC9BC; --accent-soft: #1E2E2C; --track: #242A2C;
+  }
+
+  .page {
+    background: var(--ground); color: var(--ink); min-height: 100%;
+    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    font-size: 16px; line-height: 1.55; -webkit-text-size-adjust: 100%;
+  }
+  .wrap { max-width: 42rem; margin: 0 auto; padding: 2rem 1rem 3.5rem;
+    display: flex; flex-direction: column; gap: 2.25rem; }
+
+  h1 { font-family: Georgia, "Iowan Old Style", serif; font-weight: 400;
+    font-size: clamp(1.6rem, 6vw, 2.2rem); line-height: 1.15; margin: .3rem 0 0; text-wrap: balance; }
+  h2 { font-family: Georgia, "Iowan Old Style", serif; font-weight: 400;
+    font-size: 1.3rem; line-height: 1.25; margin: 0; text-wrap: balance; }
+  p { margin: 0; }
+  .eyebrow { font-size: .7rem; font-weight: 700; letter-spacing: .12em;
+    text-transform: uppercase; color: var(--muted); margin: 0; }
+  .lede { color: var(--ink-2); margin-top: .6rem; }
+  section { display: flex; flex-direction: column; gap: 1rem; }
+
+  .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(8.5rem, 1fr)); gap: .6rem; }
+  .tile { background: var(--panel); border: 1px solid var(--edge); border-radius: .4rem;
+    padding: .8rem .9rem; display: flex; flex-direction: column; gap: .15rem; }
+  .tile .k { font-size: .72rem; letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+  .tile .v { font-size: 1.22rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
+  .chart { background: var(--panel); border: 1px solid var(--edge); border-radius: .4rem;
+    padding: 1rem .95rem; display: flex; flex-direction: column; gap: .5rem; }
+  .chart .cap { font-size: .95rem; font-weight: 650; }
+  .chart .sub { font-size: .82rem; color: var(--muted); }
+  .rows { display: flex; flex-direction: column; gap: .5rem; margin-top: .35rem; }
+  .row { display: grid; grid-template-columns: 1fr; gap: .18rem; border-radius: .25rem; outline: none; }
+  .row:hover, .row:focus-visible { background: var(--accent-soft); }
+  .row:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+  .rname { font-size: .85rem; color: var(--ink-2); }
+  .track { background: var(--track); border-radius: 2px; height: 12px; overflow: hidden; }
+  .bar { height: 100%; background: var(--accent); border-radius: 0 4px 4px 0; min-width: 2px; }
+  .rval { font-size: .8rem; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+  .note { background: var(--accent-soft); border-left: 3px solid var(--accent);
+    border-radius: .35rem; padding: .9rem 1rem; color: var(--ink-2); font-size: .95rem; }
+
+  .tablewrap { overflow-x: auto; border: 1px solid var(--edge); border-radius: .4rem; background: var(--panel); }
+  table { border-collapse: collapse; width: 100%; font-size: .85rem; }
+  th, td { text-align: left; padding: .5rem .6rem; border-bottom: 1px solid var(--edge); white-space: nowrap; }
+  th { font-size: .72rem; letter-spacing: .06em; text-transform: uppercase; color: var(--muted); font-weight: 700; }
+  td.n, th.n { text-align: right; font-variant-numeric: tabular-nums; }
+  tfoot td { font-weight: 700; border-bottom: 0; }
+
+  details { background: var(--panel); border: 1px solid var(--edge); border-radius: .4rem; padding: .7rem .9rem; }
+  summary { cursor: pointer; font-size: .9rem; font-weight: 650; }
+  details[open] summary { margin-bottom: .7rem; }
+
+  #tip { position: fixed; z-index: 9; max-width: 17rem; background: var(--panel);
+    color: var(--ink); border: 1px solid var(--edge); border-radius: .35rem;
+    padding: .5rem .6rem; font-size: .8rem; line-height: 1.4; pointer-events: none;
+    box-shadow: 0 8px 24px -12px rgba(0,0,0,.45); opacity: 0; transition: opacity .1s ease; }
+  #tip.on { opacity: 1; }
+  @media (prefers-reduced-motion: reduce) { #tip { transition: none; } }
+
+  .foot { border-top: 1px solid var(--edge); padding-top: 1rem; color: var(--muted); font-size: .82rem;
+    display: flex; flex-direction: column; gap: .4rem; }
+</style>
+
+<div class="page">
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">Отдел продаж · по данным вашей таблицы</p>
+    <h1>Что продаётся: разбор по продуктам</h1>
+    <p class="lede">Июль 2026 и весь год с января. Деньги и количество сделок показаны отдельно и в одном порядке — так видно, где много работы и мало выручки.</p>
+  </header>
+
+  <section>
+    <p class="eyebrow">Июль 2026</p>
+    <div class="tiles">
+      <div class="tile"><span class="k">Выручка</span><span class="v">8 007 197 ₸</span></div>
+      <div class="tile"><span class="k">Продаж</span><span class="v">63</span></div>
+      <div class="tile"><span class="k">Средний чек</span><span class="v">127 098 ₸</span></div>
+    </div>
+
+    <div class="chart">
+      <span class="cap">Куда пришли деньги</span>
+      <span class="sub">июль 2026, сумма в кассу</span>
+      <div class="rows">
+<div class="row" tabindex="0" data-tip="С куратором индивидуально: 2 882 662 ₸, 14 продаж, средний чек 205 904 ₸, 36.0% от суммы">
+        <div class="rname">С куратором индивидуально</div>
+        <div class="track"><div class="bar" style="width:100.00%"></div></div>
+        <div class="rval">2 882 662 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Стандарт: 1 732 810 ₸, 10 продаж, средний чек 173 281 ₸, 21.6% от суммы">
+        <div class="rname">Стандарт</div>
+        <div class="track"><div class="bar" style="width:60.11%"></div></div>
+        <div class="rval">1 732 810 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Наставничество / детская ортодонтия с нуля: 1 476 750 ₸, 4 продаж, средний чек 369 187 ₸, 18.4% от суммы">
+        <div class="rname">Наставничество / детская ортодонтия с нуля</div>
+        <div class="track"><div class="bar" style="width:51.23%"></div></div>
+        <div class="rval">1 476 750 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Диагностика: 1 110 000 ₸, 3 продаж, средний чек 370 000 ₸, 13.9% от суммы">
+        <div class="rname">Диагностика</div>
+        <div class="track"><div class="bar" style="width:38.51%"></div></div>
+        <div class="rval">1 110 000 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="С Айнур индивидуально: 499 325 ₸, 1 продаж, средний чек 499 325 ₸, 6.2% от суммы">
+        <div class="rname">С Айнур индивидуально</div>
+        <div class="track"><div class="bar" style="width:17.32%"></div></div>
+        <div class="rval">499 325 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ОИ 5000: 103 700 ₸, 16 продаж, средний чек 6 481 ₸, 1.3% от суммы">
+        <div class="rname">ОИ 5000</div>
+        <div class="track"><div class="bar" style="width:3.60%"></div></div>
+        <div class="rval">103 700 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Интенсив: 97 300 ₸, 8 продаж, средний чек 12 162 ₸, 1.2% от суммы">
+        <div class="rname">Интенсив</div>
+        <div class="track"><div class="bar" style="width:3.38%"></div></div>
+        <div class="rval">97 300 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Продление: 39 650 ₸, 3 продаж, средний чек 13 216 ₸, 0.5% от суммы">
+        <div class="rname">Продление</div>
+        <div class="track"><div class="bar" style="width:1.38%"></div></div>
+        <div class="rval">39 650 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ОК 25000: 25 000 ₸, 1 продаж, средний чек 25 000 ₸, 0.3% от суммы">
+        <div class="rname">ОК 25000</div>
+        <div class="track"><div class="bar" style="width:0.87%"></div></div>
+        <div class="rval">25 000 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Книжный клуб: 20 000 ₸, 1 продаж, средний чек 20 000 ₸, 0.2% от суммы">
+        <div class="rname">Книжный клуб</div>
+        <div class="track"><div class="bar" style="width:0.69%"></div></div>
+        <div class="rval">20 000 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Тестовый период: 20 000 ₸, 2 продаж, средний чек 10 000 ₸, 0.2% от суммы">
+        <div class="rname">Тестовый период</div>
+        <div class="track"><div class="bar" style="width:0.69%"></div></div>
+        <div class="rval">20 000 ₸</div>
+      </div>
+      </div>
+    </div>
+
+    <div class="chart">
+      <span class="cap">Сколько было сделок</span>
+      <span class="sub">тот же порядок продуктов — сравнивайте с диаграммой выше</span>
+      <div class="rows">
+<div class="row" tabindex="0" data-tip="С куратором индивидуально: 2 882 662 ₸, 14 продаж, средний чек 205 904 ₸, 22.2% от числа сделок">
+        <div class="rname">С куратором индивидуально</div>
+        <div class="track"><div class="bar" style="width:87.50%"></div></div>
+        <div class="rval">14 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Стандарт: 1 732 810 ₸, 10 продаж, средний чек 173 281 ₸, 15.9% от числа сделок">
+        <div class="rname">Стандарт</div>
+        <div class="track"><div class="bar" style="width:62.50%"></div></div>
+        <div class="rval">10 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Наставничество / детская ортодонтия с нуля: 1 476 750 ₸, 4 продаж, средний чек 369 187 ₸, 6.3% от числа сделок">
+        <div class="rname">Наставничество / детская ортодонтия с нуля</div>
+        <div class="track"><div class="bar" style="width:25.00%"></div></div>
+        <div class="rval">4 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Диагностика: 1 110 000 ₸, 3 продаж, средний чек 370 000 ₸, 4.8% от числа сделок">
+        <div class="rname">Диагностика</div>
+        <div class="track"><div class="bar" style="width:18.75%"></div></div>
+        <div class="rval">3 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="С Айнур индивидуально: 499 325 ₸, 1 продаж, средний чек 499 325 ₸, 1.6% от числа сделок">
+        <div class="rname">С Айнур индивидуально</div>
+        <div class="track"><div class="bar" style="width:6.25%"></div></div>
+        <div class="rval">1 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ОИ 5000: 103 700 ₸, 16 продаж, средний чек 6 481 ₸, 25.4% от числа сделок">
+        <div class="rname">ОИ 5000</div>
+        <div class="track"><div class="bar" style="width:100.00%"></div></div>
+        <div class="rval">16 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Интенсив: 97 300 ₸, 8 продаж, средний чек 12 162 ₸, 12.7% от числа сделок">
+        <div class="rname">Интенсив</div>
+        <div class="track"><div class="bar" style="width:50.00%"></div></div>
+        <div class="rval">8 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Продление: 39 650 ₸, 3 продаж, средний чек 13 216 ₸, 4.8% от числа сделок">
+        <div class="rname">Продление</div>
+        <div class="track"><div class="bar" style="width:18.75%"></div></div>
+        <div class="rval">3 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ОК 25000: 25 000 ₸, 1 продаж, средний чек 25 000 ₸, 1.6% от числа сделок">
+        <div class="rname">ОК 25000</div>
+        <div class="track"><div class="bar" style="width:6.25%"></div></div>
+        <div class="rval">1 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Книжный клуб: 20 000 ₸, 1 продаж, средний чек 20 000 ₸, 1.6% от числа сделок">
+        <div class="rname">Книжный клуб</div>
+        <div class="track"><div class="bar" style="width:6.25%"></div></div>
+        <div class="rval">1 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Тестовый период: 20 000 ₸, 2 продаж, средний чек 10 000 ₸, 3.2% от числа сделок">
+        <div class="rname">Тестовый период</div>
+        <div class="track"><div class="bar" style="width:12.50%"></div></div>
+        <div class="rval">2 шт</div>
+      </div>
+      </div>
+    </div>
+
+    <p class="note">16 продажи из 63 — это «ОИ 5000». На них пришлось 1.3% денег: 103 700 ₸. Времени менеджера такая сделка отнимает столько же, сколько крупная.</p>
+    <p class="note">Два продукта — «С куратором индивидуально» и «Стандарт» — дали 58% всей выручки июля.</p>
+
+    <details>
+      <summary>Июль таблицей</summary>
+      <div class="tablewrap"><table>
+      <thead><tr><th>Продукт</th><th class="n">Сумма</th><th class="n">Продаж</th><th class="n">Средний чек</th><th class="n">Доля денег</th></tr></thead>
+      <tbody><tr><td>С куратором индивидуально</td><td class="n">2 882 662 ₸</td><td class="n">14</td><td class="n">205 904 ₸</td><td class="n">36.0%</td></tr>
+<tr><td>Стандарт</td><td class="n">1 732 810 ₸</td><td class="n">10</td><td class="n">173 281 ₸</td><td class="n">21.6%</td></tr>
+<tr><td>Наставничество / детская ортодонтия с нуля</td><td class="n">1 476 750 ₸</td><td class="n">4</td><td class="n">369 187 ₸</td><td class="n">18.4%</td></tr>
+<tr><td>Диагностика</td><td class="n">1 110 000 ₸</td><td class="n">3</td><td class="n">370 000 ₸</td><td class="n">13.9%</td></tr>
+<tr><td>С Айнур индивидуально</td><td class="n">499 325 ₸</td><td class="n">1</td><td class="n">499 325 ₸</td><td class="n">6.2%</td></tr>
+<tr><td>ОИ 5000</td><td class="n">103 700 ₸</td><td class="n">16</td><td class="n">6 481 ₸</td><td class="n">1.3%</td></tr>
+<tr><td>Интенсив</td><td class="n">97 300 ₸</td><td class="n">8</td><td class="n">12 162 ₸</td><td class="n">1.2%</td></tr>
+<tr><td>Продление</td><td class="n">39 650 ₸</td><td class="n">3</td><td class="n">13 216 ₸</td><td class="n">0.5%</td></tr>
+<tr><td>ОК 25000</td><td class="n">25 000 ₸</td><td class="n">1</td><td class="n">25 000 ₸</td><td class="n">0.3%</td></tr>
+<tr><td>Книжный клуб</td><td class="n">20 000 ₸</td><td class="n">1</td><td class="n">20 000 ₸</td><td class="n">0.2%</td></tr>
+<tr><td>Тестовый период</td><td class="n">20 000 ₸</td><td class="n">2</td><td class="n">10 000 ₸</td><td class="n">0.2%</td></tr></tbody>
+      <tfoot><tr><td>Всего</td><td class="n">8 007 197 ₸</td><td class="n">63</td><td class="n">127 098 ₸</td><td class="n">100%</td></tr></tfoot>
+    </table></div>
+    </details>
+  </section>
+
+  <section>
+    <p class="eyebrow">Январь — июль 2026</p>
+    <div class="tiles">
+      <div class="tile"><span class="k">Выручка</span><span class="v">53 298 525 ₸</span></div>
+      <div class="tile"><span class="k">Продаж</span><span class="v">309</span></div>
+      <div class="tile"><span class="k">Средний чек</span><span class="v">172 487 ₸</span></div>
+    </div>
+
+    <div class="chart">
+      <span class="cap">Куда пришли деньги за год</span>
+      <span class="sub">топ-10 продуктов, остальные свёрнуты в одну строку</span>
+      <div class="rows">
+<div class="row" tabindex="0" data-tip="С куратором индивидуально: 25 419 932 ₸, 101 продаж, средний чек 251 682 ₸, 47.7% от суммы">
+        <div class="rname">С куратором индивидуально</div>
+        <div class="track"><div class="bar" style="width:100.00%"></div></div>
+        <div class="rval">25 419 932 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Стандарт: 13 529 777 ₸, 74 продаж, средний чек 182 834 ₸, 25.4% от суммы">
+        <div class="rname">Стандарт</div>
+        <div class="track"><div class="bar" style="width:53.23%"></div></div>
+        <div class="rval">13 529 777 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Наставничество / детская ортодонтия с нуля: 6 521 680 ₸, 19 продаж, средний чек 343 246 ₸, 12.2% от суммы">
+        <div class="rname">Наставничество / детская ортодонтия с нуля</div>
+        <div class="track"><div class="bar" style="width:25.66%"></div></div>
+        <div class="rval">6 521 680 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="С Айнур индивидуально: 2 761 089 ₸, 7 продаж, средний чек 394 441 ₸, 5.2% от суммы">
+        <div class="rname">С Айнур индивидуально</div>
+        <div class="track"><div class="bar" style="width:10.86%"></div></div>
+        <div class="rval">2 761 089 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Интенсив: 1 616 300 ₸, 22 продаж, средний чек 73 468 ₸, 3.0% от суммы">
+        <div class="rname">Интенсив</div>
+        <div class="track"><div class="bar" style="width:6.36%"></div></div>
+        <div class="rval">1 616 300 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Диагностика: 1 110 000 ₸, 3 продаж, средний чек 370 000 ₸, 2.1% от суммы">
+        <div class="rname">Диагностика</div>
+        <div class="track"><div class="bar" style="width:4.37%"></div></div>
+        <div class="rval">1 110 000 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ТРГ онлайн: 482 500 ₸, 2 продаж, средний чек 241 250 ₸, 0.9% от суммы">
+        <div class="rname">ТРГ онлайн</div>
+        <div class="track"><div class="bar" style="width:1.90%"></div></div>
+        <div class="rval">482 500 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="шерлок: 366 714 ₸, 2 продаж, средний чек 183 357 ₸, 0.7% от суммы">
+        <div class="rname">шерлок</div>
+        <div class="track"><div class="bar" style="width:1.44%"></div></div>
+        <div class="rval">366 714 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ОИ 5000: 335 148 ₸, 54 продаж, средний чек 6 206 ₸, 0.6% от суммы">
+        <div class="rname">ОИ 5000</div>
+        <div class="track"><div class="bar" style="width:1.32%"></div></div>
+        <div class="rval">335 148 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Вредные привычки: 302 585 ₸, 5 продаж, средний чек 60 517 ₸, 0.6% от суммы">
+        <div class="rname">Вредные привычки</div>
+        <div class="track"><div class="bar" style="width:1.19%"></div></div>
+        <div class="rval">302 585 ₸</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Остальное (13 продуктов): 852 800 ₸, 20 продаж, средний чек 42 640 ₸, 1.6% от суммы">
+        <div class="rname">Остальное (13 продуктов)</div>
+        <div class="track"><div class="bar" style="width:3.35%"></div></div>
+        <div class="rval">852 800 ₸</div>
+      </div>
+      </div>
+    </div>
+
+    <div class="chart">
+      <span class="cap">Сколько было сделок за год</span>
+      <span class="sub">тот же порядок продуктов</span>
+      <div class="rows">
+<div class="row" tabindex="0" data-tip="С куратором индивидуально: 25 419 932 ₸, 101 продаж, средний чек 251 682 ₸, 32.7% от числа сделок">
+        <div class="rname">С куратором индивидуально</div>
+        <div class="track"><div class="bar" style="width:100.00%"></div></div>
+        <div class="rval">101 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Стандарт: 13 529 777 ₸, 74 продаж, средний чек 182 834 ₸, 23.9% от числа сделок">
+        <div class="rname">Стандарт</div>
+        <div class="track"><div class="bar" style="width:73.27%"></div></div>
+        <div class="rval">74 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Наставничество / детская ортодонтия с нуля: 6 521 680 ₸, 19 продаж, средний чек 343 246 ₸, 6.1% от числа сделок">
+        <div class="rname">Наставничество / детская ортодонтия с нуля</div>
+        <div class="track"><div class="bar" style="width:18.81%"></div></div>
+        <div class="rval">19 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="С Айнур индивидуально: 2 761 089 ₸, 7 продаж, средний чек 394 441 ₸, 2.3% от числа сделок">
+        <div class="rname">С Айнур индивидуально</div>
+        <div class="track"><div class="bar" style="width:6.93%"></div></div>
+        <div class="rval">7 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Интенсив: 1 616 300 ₸, 22 продаж, средний чек 73 468 ₸, 7.1% от числа сделок">
+        <div class="rname">Интенсив</div>
+        <div class="track"><div class="bar" style="width:21.78%"></div></div>
+        <div class="rval">22 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Диагностика: 1 110 000 ₸, 3 продаж, средний чек 370 000 ₸, 1.0% от числа сделок">
+        <div class="rname">Диагностика</div>
+        <div class="track"><div class="bar" style="width:2.97%"></div></div>
+        <div class="rval">3 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ТРГ онлайн: 482 500 ₸, 2 продаж, средний чек 241 250 ₸, 0.6% от числа сделок">
+        <div class="rname">ТРГ онлайн</div>
+        <div class="track"><div class="bar" style="width:1.98%"></div></div>
+        <div class="rval">2 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="шерлок: 366 714 ₸, 2 продаж, средний чек 183 357 ₸, 0.6% от числа сделок">
+        <div class="rname">шерлок</div>
+        <div class="track"><div class="bar" style="width:1.98%"></div></div>
+        <div class="rval">2 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="ОИ 5000: 335 148 ₸, 54 продаж, средний чек 6 206 ₸, 17.5% от числа сделок">
+        <div class="rname">ОИ 5000</div>
+        <div class="track"><div class="bar" style="width:53.47%"></div></div>
+        <div class="rval">54 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Вредные привычки: 302 585 ₸, 5 продаж, средний чек 60 517 ₸, 1.6% от числа сделок">
+        <div class="rname">Вредные привычки</div>
+        <div class="track"><div class="bar" style="width:4.95%"></div></div>
+        <div class="rval">5 шт</div>
+      </div>
+<div class="row" tabindex="0" data-tip="Остальное (13 продуктов): 852 800 ₸, 20 продаж, средний чек 42 640 ₸, 6.5% от числа сделок">
+        <div class="rname">Остальное (13 продуктов)</div>
+        <div class="track"><div class="bar" style="width:19.80%"></div></div>
+        <div class="rval">20 шт</div>
+      </div>
+      </div>
+    </div>
+
+    <details>
+      <summary>Год таблицей — все продукты</summary>
+      <div class="tablewrap"><table>
+      <thead><tr><th>Продукт</th><th class="n">Сумма</th><th class="n">Продаж</th><th class="n">Средний чек</th><th class="n">Доля денег</th></tr></thead>
+      <tbody><tr><td>С куратором индивидуально</td><td class="n">25 419 932 ₸</td><td class="n">101</td><td class="n">251 682 ₸</td><td class="n">47.7%</td></tr>
+<tr><td>Стандарт</td><td class="n">13 529 777 ₸</td><td class="n">74</td><td class="n">182 834 ₸</td><td class="n">25.4%</td></tr>
+<tr><td>Наставничество / детская ортодонтия с нуля</td><td class="n">6 521 680 ₸</td><td class="n">19</td><td class="n">343 246 ₸</td><td class="n">12.2%</td></tr>
+<tr><td>С Айнур индивидуально</td><td class="n">2 761 089 ₸</td><td class="n">7</td><td class="n">394 441 ₸</td><td class="n">5.2%</td></tr>
+<tr><td>Интенсив</td><td class="n">1 616 300 ₸</td><td class="n">22</td><td class="n">73 468 ₸</td><td class="n">3.0%</td></tr>
+<tr><td>Диагностика</td><td class="n">1 110 000 ₸</td><td class="n">3</td><td class="n">370 000 ₸</td><td class="n">2.1%</td></tr>
+<tr><td>ТРГ онлайн</td><td class="n">482 500 ₸</td><td class="n">2</td><td class="n">241 250 ₸</td><td class="n">0.9%</td></tr>
+<tr><td>шерлок</td><td class="n">366 714 ₸</td><td class="n">2</td><td class="n">183 357 ₸</td><td class="n">0.7%</td></tr>
+<tr><td>ОИ 5000</td><td class="n">335 148 ₸</td><td class="n">54</td><td class="n">6 206 ₸</td><td class="n">0.6%</td></tr>
+<tr><td>Вредные привычки</td><td class="n">302 585 ₸</td><td class="n">5</td><td class="n">60 517 ₸</td><td class="n">0.6%</td></tr>
+<tr><td>5 пакет врачи</td><td class="n">249 000 ₸</td><td class="n">1</td><td class="n">249 000 ₸</td><td class="n">0.5%</td></tr>
+<tr><td>ВП индивидуальный</td><td class="n">128 400 ₸</td><td class="n">2</td><td class="n">64 200 ₸</td><td class="n">0.2%</td></tr>
+<tr><td>1 пакет врачи</td><td class="n">86 000 ₸</td><td class="n">1</td><td class="n">86 000 ₸</td><td class="n">0.2%</td></tr>
+<tr><td>Продление</td><td class="n">59 650 ₸</td><td class="n">4</td><td class="n">14 912 ₸</td><td class="n">0.1%</td></tr>
+<tr><td>ОК 25000</td><td class="n">50 000 ₸</td><td class="n">2</td><td class="n">25 000 ₸</td><td class="n">0.1%</td></tr>
+<tr><td>ВРЕДНЫЕ</td><td class="n">49 000 ₸</td><td class="n">1</td><td class="n">49 000 ₸</td><td class="n">0.1%</td></tr>
+<tr><td>Курс для взрослых</td><td class="n">45 000 ₸</td><td class="n">1</td><td class="n">45 000 ₸</td><td class="n">0.1%</td></tr>
+<tr><td>ВП групповой</td><td class="n">44 100 ₸</td><td class="n">1</td><td class="n">44 100 ₸</td><td class="n">0.1%</td></tr>
+<tr><td>МОДУЛЬ ДЛЯ МЛАДЕНЦЕВ</td><td class="n">41 650 ₸</td><td class="n">1</td><td class="n">41 650 ₸</td><td class="n">0.1%</td></tr>
+<tr><td>Встреча с Айнур 7 июня</td><td class="n">40 000 ₸</td><td class="n">2</td><td class="n">20 000 ₸</td><td class="n">0.1%</td></tr>
+<tr><td>форум</td><td class="n">20 000 ₸</td><td class="n">1</td><td class="n">20 000 ₸</td><td class="n">0.0%</td></tr>
+<tr><td>Книжный клуб</td><td class="n">20 000 ₸</td><td class="n">1</td><td class="n">20 000 ₸</td><td class="n">0.0%</td></tr>
+<tr><td>Тестовый период</td><td class="n">20 000 ₸</td><td class="n">2</td><td class="n">10 000 ₸</td><td class="n">0.0%</td></tr></tbody>
+      <tfoot><tr><td>Всего</td><td class="n">53 298 525 ₸</td><td class="n">309</td><td class="n">172 487 ₸</td><td class="n">100%</td></tr></tfoot>
+    </table></div>
+    </details>
+  </section>
+
+  <section class="foot">
+    <p><b>Откуда данные.</b> Ваша таблица продаж, вкладки Алия / Лола / Ainur, колонка «сумма в кассу». Обновляется каждую ночь.</p>
+    <p><b>Названия продуктов — как в таблице.</b> Один и тот же продукт иногда записан по-разному, и тогда он считается дважды: например «Вредные привычки» и «ВРЕДНЫЕ». Скажите, какие названия объединить, — сведу в одно.</p>
+    <p>Данные на 2026-08-01.</p>
+  </section>
+
+</div>
+</div>
+
+<div id="tip" role="status" aria-live="polite"></div>
+
+<script>
+(function () {
+  var tip = document.getElementById('tip');
+  function show(el, x, y) {
+    tip.textContent = el.getAttribute('data-tip');
+    tip.classList.add('on');
+    var w = tip.offsetWidth, h = tip.offsetHeight;
+    var left = Math.min(Math.max(8, x - w / 2), window.innerWidth - w - 8);
+    var top = y - h - 12 < 8 ? y + 16 : y - h - 12;
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  }
+  function hide() { tip.classList.remove('on'); }
+  document.querySelectorAll('.row').forEach(function (row) {
+    row.addEventListener('mouseenter', function (e) { show(row, e.clientX, e.clientY); });
+    row.addEventListener('mousemove', function (e) { show(row, e.clientX, e.clientY); });
+    row.addEventListener('mouseleave', hide);
+    row.addEventListener('focus', function () {
+      var r = row.getBoundingClientRect();
+      show(row, r.left + r.width / 2, r.top);
+    });
+    row.addEventListener('blur', hide);
+    row.addEventListener('click', function (e) { show(row, e.clientX, e.clientY); });
+  });
+  document.addEventListener('scroll', hide, { passive: true });
+})();
+</script>
+</body>
+</html>
