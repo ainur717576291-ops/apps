@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Продуктовая линейка</title>
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
+<style>
+  :root{ --bg1:#eef3fb; --bg2:#f6f8fc; --ink:#1f2740; --muted:#5f6b88; --card:#fff;
+    --green:#1e9e6b; --green-bg:#e6f7ef; --yellow:#b5860a; --yellow-bg:#fdf3dc;
+    --red:#c23b3b; --red-bg:#fdeaea; --line:#e6eaf3; }
+  *{box-sizing:border-box; -webkit-tap-highlight-color:transparent}
+  body{margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    background:linear-gradient(160deg,var(--bg1),var(--bg2)); color:var(--ink);
+    min-height:100vh; padding:20px 14px calc(30px + env(safe-area-inset-bottom));}
+  .wrap{max-width:640px; margin:0 auto}
+  .head{text-align:center; margin:6px 0 18px}
+  .head h1{margin:0 0 6px; font-size:21px; font-weight:800}
+  .head p{margin:0; color:var(--muted); font-size:13px; line-height:1.5}
+  .back{display:inline-flex; align-items:center; gap:4px; color:var(--muted); text-decoration:none;
+    font-size:13px; margin-bottom:14px}
+
+  section{margin-bottom:22px}
+  .sec-title{font-size:15px; font-weight:800; margin:0 0 10px; padding-left:2px}
+
+  .tier{background:var(--card); border-radius:18px; padding:16px; margin-bottom:14px;
+    box-shadow:0 8px 24px rgba(31,45,90,.08); border:1px solid rgba(31,45,90,.05)}
+  .tier-badge{display:inline-flex; align-items:center; gap:6px; font-size:12px; font-weight:800;
+    padding:4px 10px; border-radius:999px; margin-bottom:10px}
+  .g .tier-badge{background:var(--green-bg); color:var(--green)}
+  .y .tier-badge{background:var(--yellow-bg); color:var(--yellow)}
+  .r .tier-badge{background:var(--red-bg); color:var(--red)}
+  .tier h2{margin:0 0 8px; font-size:16px; font-weight:800}
+  .quote{font-size:13px; color:var(--muted); font-style:italic; line-height:1.5; margin:0 0 12px;
+    padding-left:10px; border-left:3px solid var(--line)}
+  .kv{width:100%; border-collapse:collapse; font-size:13px}
+  .kv tr{border-top:1px solid var(--line)}
+  .kv tr:first-child{border-top:none}
+  .kv td{padding:8px 0; vertical-align:top; line-height:1.45}
+  .kv td.k{width:38%; color:var(--muted); font-weight:600; padding-right:10px}
+  .kv td.v{font-weight:500}
+
+  .tbl-scroll{overflow-x:auto; background:var(--card); border-radius:16px;
+    box-shadow:0 8px 24px rgba(31,45,90,.08); border:1px solid rgba(31,45,90,.05)}
+  table.data{width:100%; border-collapse:collapse; font-size:12.5px; min-width:520px}
+  table.data th{text-align:left; padding:10px 8px; background:#f4f6fb; color:var(--muted);
+    font-weight:700; font-size:11.5px; text-transform:uppercase; letter-spacing:.02em;
+    position:sticky; top:0}
+  table.data td{padding:9px 8px; border-top:1px solid var(--line); vertical-align:top}
+  table.data tr:nth-child(even) td{background:#fafbfd}
+  .lvl{display:inline-block; width:10px; height:10px; border-radius:3px}
+  .lvl.g{background:var(--green)} .lvl.y{background:var(--yellow)} .lvl.r{background:var(--red)}
+  .num{color:var(--muted)}
+
+  .note{background:var(--card); border-radius:16px; padding:14px 16px; font-size:13px;
+    line-height:1.6; box-shadow:0 8px 24px rgba(31,45,90,.08); border:1px solid rgba(31,45,90,.05)}
+  .note b{color:var(--ink)}
+  .note ol{margin:8px 0 0; padding-left:18px}
+  .note li{margin-bottom:6px}
+  .total{font-weight:800; color:var(--green)}
+
+  .foot{text-align:center; color:var(--muted); font-size:11.5px; margin-top:24px}
+</style>
+</head>
+<body>
+<script>try{var tg=window.Telegram&&window.Telegram.WebApp; if(tg){tg.ready();tg.expand();}}catch(e){}</script>
+<div class="wrap">
+  <a class="back" href="https://ainur717576291-ops.github.io/apps/">← Мои приложения</a>
+  <div class="head">
+    <h1>Продуктовая линейка</h1>
+    <p>Промо-тезис → оффер → цена. Цены — гипотезы под рынок Казахстана, дальше тестируются.<br>
+    Логика: <b>вход не зарабатывает, ядро даёт маржу, топ даёт чек.</b></p>
+  </div>
+
+  <section>
+    <div class="tier g">
+      <span class="tier-badge">🟢 УРОВЕНЬ 1 · НАЧИНАЮЩИЙ</span>
+      <h2>Практикум «Вижу — значит веду»</h2>
+      <p class="quote">«Чтобы перестать отдавать пациентов, которых я вижу каждый день, и начать вести их самой, мне нужен не второй диплом ортодонта, а протокол функциональной диагностики, который встраивается в мой обычный приём».</p>
+      <table class="kv">
+        <tr><td class="k">Формат</td><td class="v">3 недели, 6 онлайн-занятий + чек-листы диагностики</td></tr>
+        <tr><td class="k">Цена</td><td class="v">55 000 ₸ <span class="num">(старт 39 000 ₸ по ранней цене)</span></td></tr>
+        <tr><td class="k">Ядро оффера</td><td class="v">Протокол осмотра за 4 минуты + скрипт разговора с мамой + маршрут первых 3 пациентов</td></tr>
+        <tr><td class="k">Главное возражение</td><td class="v">«Я не ортодонт, мне это не по силам»</td></tr>
+        <tr><td class="k">Чем закрываем</td><td class="v">Показываем, что первый шаг — не лечение, а выявление и ведение. Кейсы терапевтов и логопедов, а не ортодонтов</td></tr>
+        <tr><td class="k">Цель продукта</td><td class="v">Не прибыль, а вход в экосистему + отбор тех, кто пойдёт в ядро</td></tr>
+      </table>
+    </div>
+
+    <div class="tier y">
+      <span class="tier-badge">🟡 УРОВЕНЬ 2 · ПРОДОЛЖАЮЩИЙ — основной чек</span>
+      <h2>Менторство ProPrikus</h2>
+      <p class="quote">«Чтобы перестать переделывать бесплатно и бояться собственных решений, мне нужен не ещё один курс с теорией, а разбор моих реальных пациентов внутри системы "функция → форма → стабильность"».</p>
+      <table class="kv">
+        <tr><td class="k">Формат</td><td class="v">3 месяца, модули + офлайн-практика + разбор своих случаев</td></tr>
+        <tr><td class="k">Цена</td><td class="v">890 000 ₸ <span class="num">(рассрочка 3 × 320 000 ₸)</span></td></tr>
+        <tr><td class="k">Ядро оффера</td><td class="v">Личный разбор минимум 5 своих пациентов + алгоритм «когда что включать» + доступ в чат для вопросов по текущим случаям</td></tr>
+        <tr><td class="k">Главное возражение</td><td class="v">«Я уже платил за обучение и не внедрил»</td></tr>
+        <tr><td class="k">Чем закрываем</td><td class="v">Внедрение зашито в программу: без сданного своего случая нет перехода к следующему модулю. Единственный способ снять скепсис сегмента №5, который заражает остальных</td></tr>
+        <tr><td class="k">Акцент в продажах</td><td class="v">На рассрочку, не на скидку (по методичке — +76% конверсии)</td></tr>
+      </table>
+    </div>
+
+    <div class="tier r">
+      <span class="tier-badge">🔴 УРОВЕНЬ 3 · ПРОДВИНУТЫЙ</span>
+      <h2>ProPrikus Практика / Мастермайнд</h2>
+      <p class="quote">«Чтобы перестать зависеть от одного врача, чужого потока и своих рук, мне нужна не новая методика, а направление, встроенное в бизнес: протоколы, команда и поток родителей».</p>
+      <table class="kv">
+        <tr><td class="k">Формат</td><td class="v">4–6 месяцев, малая группа (до 8–10 человек) + индивидуальные сессии</td></tr>
+        <tr><td class="k">Цена</td><td class="v">2 200 000 ₸ <span class="num">(для клиники — с обучением 2 врачей)</span></td></tr>
+        <tr><td class="k">Ядро оффера</td><td class="v">Протоколы под клинику + обучение команды + юнит-экономика направления + воронка на родителей</td></tr>
+        <tr><td class="k">Главное возражение</td><td class="v">«Мне дадут базу, которую я уже знаю»</td></tr>
+        <tr><td class="k">Чем закрываем</td><td class="v">Продаём не методику, а деньги: загрузка кресла, LTV семьи, независимость от наёмного врача</td></tr>
+        <tr><td class="k">Кому продаём холодно</td><td class="v">Только сегменту №12 (владельцы). Остальные 4 — после ядра</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">Сводная таблица — 20 сегментов</div>
+    <div class="tbl-scroll">
+      <table class="data">
+        <thead><tr><th>Ур.</th><th>№</th><th>Кто</th><th>Боль-триггер</th><th>Куда ведём</th></tr></thead>
+        <tbody>
+          <tr><td><span class="lvl g"></span></td><td class="num">6</td><td>Детский терапевт</td><td>Вижу и молчу</td><td>Практикум</td></tr>
+          <tr><td><span class="lvl g"></span></td><td class="num">7</td><td>Врач в райцентре</td><td>Очередь есть — умения нет</td><td>Практикум</td></tr>
+          <tr><td><span class="lvl g"></span></td><td class="num">9</td><td>Хирург</td><td>Режу, а результата нет</td><td>Практикум</td></tr>
+          <tr><td><span class="lvl g"></span></td><td class="num">10</td><td>Логопед</td><td>Звуки ставлю — откатывается</td><td>Практикум</td></tr>
+          <tr><td><span class="lvl g"></span></td><td class="num">11</td><td>ЛОР</td><td>Аденоиды выросли снова</td><td>Практикум</td></tr>
+          <tr><td><span class="lvl g"></span></td><td class="num">16</td><td>После ординатуры</td><td>Боюсь разоблачения</td><td>Практикум</td></tr>
+          <tr><td><span class="lvl g"></span></td><td class="num">17</td><td>После декрета</td><td>Начинаю с нуля в 35</td><td>Практикум</td></tr>
+          <tr><td><span class="lvl g"></span></td><td class="num">18</td><td>Свой ребёнок</td><td>Не помог собственному</td><td>Практикум → Ядро</td></tr>
+          <tr><td><span class="lvl y"></span></td><td class="num">1</td><td>Брекетчик 3–7 лет</td><td>Отдаю 3–4 ребёнка в месяц</td><td>Менторство</td></tr>
+          <tr><td><span class="lvl y"></span></td><td class="num">2</td><td>Рецидивы</td><td>Переделываю бесплатно</td><td>Менторство</td></tr>
+          <tr><td><span class="lvl y"></span></td><td class="num">3</td><td>Трейнеры не сработали</td><td>Вернул деньги пациентам</td><td>Менторство</td></tr>
+          <tr><td><span class="lvl y"></span></td><td class="num">4</td><td>Боится роста</td><td>Проще отказать, чем испортить</td><td>Менторство</td></tr>
+          <tr><td><span class="lvl y"></span></td><td class="num">8</td><td>Взрослый ортодонт</td><td>Теряю семью на детях</td><td>Менторство</td></tr>
+          <tr><td><span class="lvl y"></span></td><td class="num">15</td><td>Не продаёт план</td><td>40 минут бесплатно — и «подумаю»</td><td>Менторство</td></tr>
+          <tr><td><span class="lvl y"></span></td><td class="num">5</td><td>Обжёгся на курсе</td><td>Не верю никому</td><td>Менторство</td></tr>
+          <tr><td><span class="lvl r"></span></td><td class="num">12</td><td>Владелец клиники</td><td>Врач ушёл с базой</td><td>Мастермайнд</td></tr>
+          <tr><td><span class="lvl r"></span></td><td class="num">13</td><td>Низкий чек</td><td>Пашу как ортодонт, получаю как терапевт</td><td>Мастермайнд</td></tr>
+          <tr><td><span class="lvl r"></span></td><td class="num">14</td><td>Нет потока</td><td>Обо мне никто не знает</td><td>Мастермайнд</td></tr>
+          <tr><td><span class="lvl r"></span></td><td class="num">19</td><td>Уходит из найма</td><td>Отдаю 60% клинике</td><td>Мастермайнд</td></tr>
+          <tr><td><span class="lvl r"></span></td><td class="num">20</td><td>Хочет имя</td><td>Приглашают выступать других</td><td>Мастермайнд</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section>
+    <div class="sec-title">Математика: как выйти на 10 млн ₸/мес</div>
+    <p style="font-size:12.5px; color:var(--muted); margin:-4px 0 10px">Считаем от вебинара — рабочего формата. Конверсии консервативные для B2B-медицины.</p>
+    <div class="tbl-scroll">
+      <table class="data">
+        <thead><tr><th>Этап</th><th>Коэффициент</th><th>Цифра</th></tr></thead>
+        <tbody>
+          <tr><td>Показы рекламы</td><td class="num">—</td><td>200 000</td></tr>
+          <tr><td>Регистрации на вебинар</td><td class="num">1,5%</td><td>3 000</td></tr>
+          <tr><td>Дошли до эфира</td><td class="num">30%</td><td>900</td></tr>
+          <tr><td>Досидели до оффера</td><td class="num">45%</td><td>405</td></tr>
+          <tr><td>Заявки</td><td class="num">15%</td><td>61</td></tr>
+          <tr><td>Продажи менторства</td><td class="num">18% от заявок</td><td>11</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:13px; margin:10px 2px 0"><b>11 × 890 000 = <span class="total">9,79 млн ₸</span></b></p>
+    <p style="font-size:12.5px; color:var(--muted); margin:4px 2px 0">Расходы: при CPL 2 500 ₸ × 3 000 регистраций = 7,5 млн ₸ на трафик.</p>
+  </section>
+
+  <section>
+    <div class="sec-title">Маржа и рычаги роста</div>
+    <div class="note">
+      Маржа тонкая — <b>2,3 млн ₸</b>. Нормально для холодного старта, но так работать нельзя долго.
+      <br><br>
+      <b>Что даёт вход-продукт (практикум 55 000 ₸):</b> из тех же 61 заявки часть не готова к 890 000. Практикум как альтернатива — конверсия 25% от «отказников» (50 человек) = 12 продаж × 55 000 = <b>660 000 ₸</b>. Возвращает ~9% рекламного бюджета сразу, а через 2–3 месяца 20–30% из них дозревают до менторства без новых затрат на трафик.
+      <br><br>
+      <b>Три рычага (из методички «27 приёмов»):</b>
+      <ol>
+        <li><b>Дожимающая серия 10 дней после вебинара</b> → +30–40% к продажам. 11 продаж → 14–15. <b>+2,7–3,5 млн ₸</b> без рекламы.</li>
+        <li><b>Рассрочка вместо скидки</b> → до +76% конверсии в заявку. 320 000 ₸/мес подъёмно, 890 000 разом — нет.</li>
+        <li><b>Каскад форматов</b> для не купивших: вебинар → продающее видео → личный разбор от менеджера. Минимум удваивает добор.</li>
+      </ol>
+      <br>
+      С учётом рычагов реалистичная цель: <b class="total">13–15 млн ₸</b> с одного запуска при том же трафике.
+      <br><br>
+      Дальше — собрать под ядро (продолжающих) полную аргументацию вебинара по схеме «утверждение → доказательство → выгода»: это напрямую влияет на конверсию 45%→60% и на 18% в продажу. Самая дешёвая точка роста — не требует ни тенге на трафик.
+    </div>
+  </section>
+
+  <div class="foot">Продуктовая линейка ProPrikus · обновлено 10.08</div>
+</div>
+</body>
+</html>
